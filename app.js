@@ -48,21 +48,21 @@ function loadSong(songIndex) {
     const songName = songNames[songIndex]
     const songFileName = songFileNames[songIndex]
     songTitle.innerHTML = songName
-    audio.src = `/audio/${songFileName}.mp3`
+    audio.src = `audio/${songFileName}.mp3`
 }
 loadSong(songIndex)
 
 function playSong() {
     player.classList.add('playing')
     cover.classList.add('active')
-    playStop.src = '/img/pause.png'
+    playStop.src = 'img/pause.png'
     audio.play()
 }
 
 function pauseSong() {
     player.classList.remove('playing')
     cover.classList.remove('active')
-    playStop.src = '/img/play.png'
+    playStop.src = 'img/play.png'
     audio.pause()
 }
 

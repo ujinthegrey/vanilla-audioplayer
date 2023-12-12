@@ -75,12 +75,15 @@ playBtn.onclick = () => {
     }
 }
 
-nextBtn.onclick = () => {
+function nextSong() {
     const isPlaying = player.classList.contains('playing')
     songIndex++
     if (songIndex > songFileNames.length - 1) songIndex = 0
     loadSong(songIndex)
     if (isPlaying) playSong()
+}
+nextBtn.onclick = () => {
+    nextSong()
 }
 
 prevBtn.onclick = () => {
@@ -90,3 +93,22 @@ prevBtn.onclick = () => {
     loadSong(songIndex)
     if (isPlaying) playSong()
 }
+
+// PROGRESS BAR
+function updateProgress(e) {
+    const {duration, currentTime} = e.srcElement
+    const progressPercent = (currentTime / duration) * 100 || 0
+    progressBar.style.width = `${progressPercent}%`
+}
+audio.addEventListener('timeupdate', updateProgress)
+
+function setProgress(e) {
+    const width = this.clientWidth
+    const clickX = e.offsetX
+    const duration = audio.duration
+    audio.currentTime = clickX / width * duration
+}
+progressContainer.addEventListener('click', setProgress)
+
+// AUTOPLAY
+audio.addEventListener('ended', nextSong)
